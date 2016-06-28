@@ -29,5 +29,8 @@ class BalanceSuite extends FunSuite {
   test("balance: This is an empty list") {
     assert(balance("".toList))
   }
+    test("failed") {
+      assert(!balance("(((hello)there)you)(".toList))
+    }
 
 }

@@ -1,7 +1,5 @@
 package recfun
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Occurs
-
 import scala.annotation.tailrec
 
 object Main {
@@ -29,19 +27,23 @@ object Main {
   def balance(chars: List[Char]): Boolean = {
     @tailrec
     def occurrences(occurs: Int, chars: List[Char]): Boolean = {
-      if (occurs < 0) return false
-
-      chars match {
-        case Nil => true
-        case x :: tail => {
-          if (x == ')') {
-            occurrences(occurs - 1, tail)
-          }
-          else {
-            if (x == '(')
-              occurrences(occurs + 1, tail)
-            else
-              occurrences(occurs, tail)
+      if (occurs < 0){
+        false
+      } else if(chars.isEmpty && occurs > 0) {
+        false
+      } else {
+        chars match {
+          case Nil => true
+          case x :: tail => {
+            if (x == ')') {
+              occurrences(occurs - 1, tail)
+            }
+            else {
+              if (x == '(')
+                occurrences(occurs + 1, tail)
+              else
+                occurrences(occurs, tail)
+            }
           }
         }
       }
@@ -54,21 +56,11 @@ object Main {
    * Exercise 3
    */
   def countChange(money: Int, coins: List[Int]): Int = {
-    if(money == 0 || coins.isEmpty) return 0
-
-    val sortedCoins = coins.sorted
-
-    @tailrec
-    def loop(acc: Int, coins: List[Int]): Int = {
-      coins match {
-        case Nil => acc
-        case x :: tail => {
-
-        }
-      }
-    }
-
-    loop(0, sortedCoins)
+    if (money < 0 || coins.isEmpty) 0
+    else
+    if (money == 0) 1
+    else
+      countChange(money - coins.head, coins) + countChange(money, coins.tail)
   }
 
 }
