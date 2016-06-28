@@ -27,22 +27,22 @@ object Main {
   def balance(chars: List[Char]): Boolean = {
     @tailrec
     def occurrences(occurs: Int, chars: List[Char]): Boolean = {
-      if (occurs < 0){
-        false
-      } else if(chars.isEmpty && occurs > 0) {
-        false
-      } else {
-        chars match {
-          case Nil => true
-          case x :: tail => {
-            if (x == ')') {
-              occurrences(occurs - 1, tail)
-            }
-            else {
-              if (x == '(')
-                occurrences(occurs + 1, tail)
-              else
-                occurrences(occurs, tail)
+      (occurs, chars) match {
+        case (x, y) if (x < 0) => false
+        case (x, y) if (y.isEmpty && x > 0) => false
+        case _ => {
+          chars match {
+            case Nil => true
+            case x :: tail => {
+              if (x == ')') {
+                occurrences(occurs - 1, tail)
+              }
+              else {
+                if (x == '(')
+                  occurrences(occurs + 1, tail)
+                else
+                  occurrences(occurs, tail)
+              }
             }
           }
         }
